@@ -1,9 +1,10 @@
 class Test:
-    def __init__(self, name, input_file, output_file, timeout):
+    def __init__(self, name, input_file, output_file, timeout, grade):
         self.name = name
         self.input_file = input_file
         self.output_file = output_file
         self.timeout = timeout
+        self.grade = grade
 
     def check(self, output_file):
         # line by line comparison with strip

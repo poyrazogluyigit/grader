@@ -1,36 +1,44 @@
 {
-    "timeouts": [
+    "cases": [
         {
             "file_name": "small1.txt",
-            "timeout": 5
+            "timeout": 5,
+            "grade": 10
         },
         {
             "file_name": "small2.txt",
-            "timeout": 5
+            "timeout": 5,
+            "grade": 10
         },
         {
             "file_name": "small3.txt",
-            "timeout": 5
+            "timeout": 5,
+            "grade": 10
         },
         {
             "file_name": "small4.txt",
-            "timeout": 5
+            "timeout": 5,
+            "grade": 10
         },
         {
             "file_name": "small5.txt",
-            "timeout": 5
+            "timeout": 5,
+            "grade": 10
         },
         {
             "file_name": "large1.txt",
-            "timeout": 20
+            "timeout": 20,
+            "grade": 10
         },
         {
             "file_name": "large2.txt",
-            "timeout": 120
+            "timeout": 120,
+            "grade": 10
         },
         {
             "file_name": "large3.txt",
-            "timeout": 15
+            "timeout": 15,
+            "grade": 10
         }
     ]
 }
