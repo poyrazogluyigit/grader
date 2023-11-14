@@ -1,5 +1,6 @@
-import os
 from grader.exceptions import UnzipException, FindException
+
+import os
 
 class Finder:
     extension_list = ['zip', 'rar', '7z']
