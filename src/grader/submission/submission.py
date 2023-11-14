@@ -6,7 +6,7 @@ import re
 import subprocess
 
 class Submission:
-    def __init__(self, path, extension, compile_extension, compile_command, run_command, input_dir, output_dir, timeouts) -> None:
+    def __init__(self, path, extension, compile_extension, compile_command, run_command) -> None:
         self.path = path
         self._rename_path()
         self.name = self._get_name()
@@ -14,9 +14,6 @@ class Submission:
         self.compile_extension = compile_extension
         self.compile_command = compile_command
         self.run_command = run_command
-        self.input_dir = input_dir
-        self.output_dir = output_dir
-        self.timeouts = timeouts
         self.finder = Finder(self.path)
         self.feedback = []
         self.files = []
@@ -49,14 +46,36 @@ class Submission:
         command = [self.compile_command]
         command.extend(self.files)
         
-        child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        child.wait()
-        
+        try:
+            child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            child.wait(timeout=5)
+        except subprocess.TimeoutExpired as e:
+            raise CompileException('Compilation timed out')
+
         os.chdir(old_cwd)
         if child.returncode != 0:
             raise CompileException(child.stderr.read().decode('utf-8'))
 
         self._find(self.compile_extension)
+
+    def run(self, testcase):
+        old_cwd = os.getcwd()
+        os.chdir(self.path)
+
+        command = [self.run_command]
+        command.append('Main')
+        command.extend([testcase.input_file, os.path.join(self.path, testcase.name + '.out')])
+
+        try:
+            child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            child.wait(timeout=testcase.timeout)
+        except subprocess.TimeoutExpired as e:
+            raise TimeoutException(f'Timeout {testcase.timeout} seconds')
+
+        os.chdir(old_cwd)
+        if child.returncode != 0:
+            raise RunException(child.stderr.read().decode('utf-8'))
+
 
     def get_files(self):
         return self.files

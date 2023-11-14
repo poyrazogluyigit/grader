@@ -1,8 +1,36 @@
 {
     "timeouts": [
         {
-            "file_name": "",
-            "timeout": 0
+            "file_name": "small1.txt",
+            "timeout": 5
+        },
+        {
+            "file_name": "small2.txt",
+            "timeout": 5
+        },
+        {
+            "file_name": "small3.txt",
+            "timeout": 5
+        },
+        {
+            "file_name": "small4.txt",
+            "timeout": 5
+        },
+        {
+            "file_name": "small5.txt",
+            "timeout": 5
+        },
+        {
+            "file_name": "large1.txt",
+            "timeout": 20
+        },
+        {
+            "file_name": "large2.txt",
+            "timeout": 120
+        },
+        {
+            "file_name": "large3.txt",
+            "timeout": 15
         }
     ]
 }
