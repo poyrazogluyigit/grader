@@ -1,6 +1,8 @@
 {
-    "submissions_dir": "",
+    "submissions_dir": "/Users/kilic/Projects/grader/20232024-1_CMPE250.01-Project_1-779437",
     "input_dir": "",
     "output_dir": "",
-    "grades_file": ""
+    "grades_file": "",
+    "compile_cmd": "",
+    "run_cmd": ""
 }
