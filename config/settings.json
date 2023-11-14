@@ -3,6 +3,8 @@
     "input_dir": "",
     "output_dir": "",
     "grades_file": "",
+    "extension": ".java",
+    "compile_extension": ".class",
     "compile_cmd": "javac",
     "run_cmd": "java"
 }

@@ -1,6 +1,8 @@
 from grader.exceptions import UnzipException, FindException
 
 import os
+import shutil
+import zipfile
 
 class Finder:
     extension_list = ['zip', 'rar', '7z']
@@ -16,13 +18,15 @@ class Finder:
                 new_name = os.path.join(self.path, file_name)
                 os.rename(os.path.join(self.path, file), new_name)
                 try:
-                    os.system(f"7z e {new_name} -o{self.path} -y >/dev/null 2>&1")
-                except OSError:
+                    with zipfile.ZipFile(new_name, 'r') as zip_ref:
+                        zip_ref.extractall(self.path)
+                except zipfile.BadZipFile:
                     raise UnzipException(f"Could not unzip {file}")
 
     def find(self, extension):
         # recursively search for files with the given extension
         # and return a list of them
+        self.files = []
         for root, _, files in os.walk(self.path):
             for file in files:
                 if not file.startswith('._') and file.endswith(extension):
@@ -40,9 +44,6 @@ class Finder:
             os.rename(file, new_name)
             new_files.append(new_name)
 
-        for root, dirs, _ in os.walk(self.path):
-            for dir in dirs:
-                os.rmdir(os.path.join(root, dir))
-
         return new_files
+
 

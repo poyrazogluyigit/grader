@@ -16,8 +16,12 @@ class Main:
     def ready(self):
         self.grader.init_submissions()
 
+    def compile(self):
+        self.grader.compile_submissions()
+
 if __name__ == '__main__':
     config_dir = sys.argv[1]
     main = Main(os.path.join(config_dir, 'settings.json'), os.path.join(config_dir, 'timeouts.json'))
     main.ready()
+    main.compile()
     
