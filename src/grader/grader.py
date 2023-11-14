@@ -1,5 +1,7 @@
-import os
 from grader.submission import Submission
+from grader.exceptions import GraderException
+
+import os
 
 class Grader:
     def __init__(self, settings, timeouts) -> None:
@@ -24,14 +26,18 @@ class Grader:
             self.compile_extension, self.compile_command, self.run_command, self.input_dir, self.output_dir, self.timeouts)
             try:
                 submission.ready()
-                print(f'Submission {self.name} is ready')
+                print(f'Submission {submission.name} is ready')
             except GraderException as e:
-                print(f'Could not prepare submission {self.name}', e)
+                print(f'Could not prepare submission {submission.name}', e)
+                submission.add_feedback(e)
+                submission.stop_grading()
 
             self.submissions.append(submission)
 
     def compile_submissions(self):
         for submission in self.submissions:
+            if not submission.grading_continues():
+                continue
             try:
                 submission.compile()
                 submission.grade('compile', 1)

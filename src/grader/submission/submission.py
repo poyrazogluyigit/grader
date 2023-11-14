@@ -1,7 +1,9 @@
 from ..path import Finder
+from ..exceptions import CompileException
 
 import os
 import re
+import subprocess
 
 class Submission:
     def __init__(self, path, extension, compile_extension, compile_command, run_command, input_dir, output_dir, timeouts) -> None:
@@ -19,6 +21,7 @@ class Submission:
         self.feedback = []
         self.files = []
         self.grades = {}
+        self.continue_grading = True
 
     def _get_name(self):
         regex = r'(.*?)_\d'
@@ -47,7 +50,7 @@ class Submission:
         command.extend(self.files)
         
         child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        child.wait(self.timeouts['compile'])
+        child.wait()
         
         os.chdir(old_cwd)
         if child.returncode != 0:
@@ -69,3 +72,9 @@ class Submission:
 
     def get_feedback(self):
         return self.feedback
+
+    def stop_grading(self):
+        self.continue_grading = False
+
+    def grading_continues(self):
+        return self.continue_grading
