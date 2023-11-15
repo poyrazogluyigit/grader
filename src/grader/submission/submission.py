@@ -1,5 +1,5 @@
 from ..path import Finder
-from ..exceptions import CompileException
+from ..exceptions import CompileException, RunException, TimeoutException
 
 import os
 import re
@@ -50,6 +50,7 @@ class Submission:
             child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             child.wait(timeout=5)
         except subprocess.TimeoutExpired as e:
+            child.kill()
             raise CompileException('Compilation timed out')
 
         os.chdir(old_cwd)
@@ -63,6 +64,7 @@ class Submission:
         os.chdir(self.path)
 
         command = [self.run_command]
+        command.extend(['-Duser.language=en', '-Duser.region=US', '-Duser.country=US'])
         command.append('Main')
         command.extend([testcase.input_file, os.path.join(self.path, testcase.name + '.out')])
 
@@ -70,6 +72,7 @@ class Submission:
             child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             child.wait(timeout=testcase.timeout)
         except subprocess.TimeoutExpired as e:
+            child.kill()
             raise TimeoutException(f'Timeout {testcase.timeout} seconds')
 
         os.chdir(old_cwd)

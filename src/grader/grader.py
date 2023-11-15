@@ -53,8 +53,8 @@ class Grader:
                 print(f'Submission {submission.name} compiled successfully')
             except GraderException as e:
                 submission.grade('compile', 0)
-                print(f'Could not compile submission {submission.name}', e)
-                submission.add_feedback(e)
+                print(f'Could not compile submission {submission.name}')
+                submission.add_feedback(e.message)
             
             # break
 
@@ -75,7 +75,9 @@ class Grader:
                         print(f'Submission {submission.name} failed test {test.name}')
 
                 except GraderException as e:
+                    submission.grade(test.name, 0)
                     submission.add_feedback(f'{test.name}: {e}')
+                    print(f'Submission {submission.name} failed test {test.name}:', e)
 
             # break
 
@@ -87,7 +89,7 @@ class Grader:
             sub_grades = submission.get_grades()
             print(sub_grades)
             submission_grades = [sub_grades[test.name] * test.grade for test in self.tests]
-            grades.loc[len(grades)] = [submission.name, sub_grades['compile'], *submission_grades, sum(submission_grades), ' '.join(submission.feedback)]
+            grades.loc[len(grades)] = [submission.name, sub_grades['compile'], *submission_grades, sum(submission_grades), ', '.join(submission.feedback)]
             
             # break
 
