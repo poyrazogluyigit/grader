@@ -13,7 +13,7 @@ class Grader:
         self.compile_extension = settings['compile_extension']
         self.compile_command = settings['compile_cmd']
         self.run_command = settings['run_cmd']
-        self.grades_file = settings['grades_file']
+        self.grades_file = open(settings['grades_file'], 'a+')
         self.grading_table = grading_table['cases']
 
         self.submissions = []
@@ -25,7 +25,11 @@ class Grader:
             output_file = os.path.join(self.output_dir, test_dict['file_name'].replace('.in', '.out'))
             if os.path.isfile(input_file) and os.path.isfile(output_file):
                 self.tests.append(Test(test_dict['file_name'].split('.')[0], input_file, output_file, test_dict['timeout'], test_dict['grade']))
-            
+        
+        names = [test.name for test in self.tests]    
+        if self.grades_file.tell() == 0:
+            self.grades_file.write(f'name,compile,{",".join(names)},total,feedback\n')
+        
     def init_submissions(self):
         for submission in os.listdir(self.submissions_dir):
             if not os.path.isdir(os.path.join(self.submissions_dir, submission)):
@@ -55,12 +59,14 @@ class Grader:
                 submission.grade('compile', 0)
                 print(f'Could not compile submission {submission.name}')
                 submission.add_feedback(e.message)
+                submission.stop_grading()
             
             # break
 
     def run_submissions(self):
         for submission in self.submissions:
             if not submission.grading_continues():
+                self.write_grade(submission)
                 continue
             for test in self.tests:
                 try:
@@ -79,18 +85,26 @@ class Grader:
                     submission.add_feedback(f'{test.name}: {e}')
                     print(f'Submission {submission.name} failed test {test.name}:', e)
 
+            self.write_grade(submission)
             # break
 
-    def write_grades(self):
-        import pandas as pd
-        tests = [test.name for test in self.tests]
-        grades = pd.DataFrame(columns=['name', 'compile', *tests, 'total', 'feedback'])
-        for submission in self.submissions:
-            sub_grades = submission.get_grades()
-            print(sub_grades)
-            submission_grades = [sub_grades[test.name] * test.grade for test in self.tests]
-            grades.loc[len(grades)] = [submission.name, sub_grades['compile'], *submission_grades, sum(submission_grades), ', '.join(submission.feedback)]
+    def write_grade(self, submission):
+        grades = submission.get_grades()
+        print(grades)
+        normalized = [grades.get(test.name, 0) * test.grade for test in self.tests]
+        self.grades_file.write(f'{submission.name},{grades.get("compile", 0)},{",".join(map(str, normalized))},{sum(normalized)+grades["compile"]},{"; ".join(submission.feedback)}\n')
+
+
+    # def write_grades(self):
+    #     import pandas as pd
+    #     tests = [test.name for test in self.tests]
+    #     grades = pd.DataFrame(columns=['name', 'compile', *tests, 'total', 'feedback'])
+    #     for submission in self.submissions:
+    #         sub_grades = submission.get_grades()
+    #         print(sub_grades)
+    #         submission_grades = [sub_grades[test.name] * test.grade for test in self.tests]
+    #         grades.loc[len(grades)] = [submission.name, sub_grades['compile'], *submission_grades, sum(submission_grades)+sub_grades['compile'], ', '.join(submission.feedback)]
             
-            # break
+    #         # break
 
-        grades.to_csv(self.grades_file, index=False)
+    #     grades.to_csv(self.grades_file, index=False)

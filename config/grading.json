@@ -1,43 +1,48 @@
 {
     "cases": [
         {
-            "file_name": "small1.txt",
+            "file_name": "test1.in",
             "timeout": 5,
             "grade": 10
         },
         {
-            "file_name": "small2.txt",
+            "file_name": "test2.in",
             "timeout": 5,
             "grade": 10
         },
         {
-            "file_name": "small3.txt",
+            "file_name": "test3.in",
             "timeout": 5,
             "grade": 10
         },
         {
-            "file_name": "small4.txt",
+            "file_name": "test4.in",
             "timeout": 5,
             "grade": 10
         },
         {
-            "file_name": "small5.txt",
+            "file_name": "test5.in",
+            "timeout": 50,
+            "grade": 10
+        },
+        {
+            "file_name": "test6.in",
+            "timeout": 180,
+            "grade": 10
+        },
+        {
+            "file_name": "test7.in",
+            "timeout": 40,
+            "grade": 10
+        },
+        {
+            "file_name": "test8.in",
+            "timeout": 210,
+            "grade": 10
+        },
+        {
+            "file_name": "test9.in",
             "timeout": 5,
-            "grade": 10
-        },
-        {
-            "file_name": "large1.txt",
-            "timeout": 20,
-            "grade": 10
-        },
-        {
-            "file_name": "large2.txt",
-            "timeout": 120,
-            "grade": 10
-        },
-        {
-            "file_name": "large3.txt",
-            "timeout": 15,
             "grade": 10
         }
     ]

@@ -1,8 +1,8 @@
 {
-    "submissions_dir": "/Users/kilic/Projects/grader/20232024-1_CMPE250.01-Project_1-779437",
-    "input_dir": "/Users/kilic/Projects/proj1/cases/inputs",
-    "output_dir": "/Users/kilic/Projects/proj1/cases/outputs",
-    "grades_file": "/Users/kilic/Projects/grader/20232024-1_CMPE250.01-Project_1-779437/grades.csv",
+    "submissions_dir": "/mnt/shared/submissions",
+    "input_dir": "/mnt/shared/cases/inputs",
+    "output_dir": "/mnt/shared/cases/outputs",
+    "grades_file": "/mnt/shared/grades.csv",
     "extension": ".java",
     "compile_extension": ".class",
     "compile_cmd": "javac",
