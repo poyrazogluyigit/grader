@@ -30,9 +30,9 @@ class Finder:
         self.files = []
         for root, _, files in os.walk(self.path):
             for file in files:
-                if not file.startswith('._') and file.split('.')[-1].lower() in Finder.extension_list:
+                if not file.startswith('._') and file.endswith(extension):
                     self.files.append(os.path.join(root, file))
-                else:
+                elif file.split('.')[-1].lower() not in Finder.extension_list:
                     os.remove(os.path.join(root, file))
 
         if not self.files:
