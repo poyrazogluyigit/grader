@@ -24,6 +24,7 @@ class Finder:
                     raise UnzipException(f"Could not unzip {file}")
 
     def find(self, extension):
+        Finder.extension_list.append(extension)
         # recursively search for files with the given extension
         # and return a list of them
         self.files = []
