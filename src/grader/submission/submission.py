@@ -55,7 +55,7 @@ class Submission:
 
         os.chdir(old_cwd)
         if child.returncode != 0:
-            raise CompileException(child.stderr.read().decode('utf-8'))
+            raise CompileException(child.stderr.read().decode('utf-8').replace('\n', ' ').replace('\r', ''))
 
         self._find(self.compile_extension)
 
@@ -77,7 +77,7 @@ class Submission:
 
         os.chdir(old_cwd)
         if child.returncode != 0:
-            raise RunException(child.stderr.read().decode('utf-8'))
+            raise RunException(child.stderr.read().decode('utf-8').replace('\n', ' ').replace('\r', ''))
 
 
     def get_files(self):

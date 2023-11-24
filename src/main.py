@@ -23,8 +23,6 @@ class Main:
     def run(self):
         self.grader.run_submissions()
 
-    def grade(self):
-        self.grader.write_grades()
 
 if __name__ == '__main__':
     config_dir = sys.argv[1]
@@ -32,4 +30,3 @@ if __name__ == '__main__':
     main.ready()
     main.compile()
     main.run()
-    main.grade()
