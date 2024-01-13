@@ -1,8 +1,8 @@
 {
-    "submissions_dir": "/mnt/shared/submissions",
-    "input_dir": "/mnt/shared/cases/inputs",
-    "output_dir": "/mnt/shared/cases/outputs",
-    "grades_file": "/mnt/shared/grades.csv",
+    "submissions_dir": "/Users/poyrazogluyigit/Documents/boun/grader/sandbox/submissions",
+    "input_dir": "/Users/poyrazogluyigit/Documents/boun/grader/cases",
+    "output_dir": "/Users/poyrazogluyigit/Documents/boun/grader/cases/outputs",
+    "grades_file": "/Users/poyrazogluyigit/Documents/boun/grader/grades.csv",
     "extension": ".java",
     "compile_extension": ".class",
     "compile_cmd": "javac",

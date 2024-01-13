@@ -21,8 +21,7 @@ class Submission:
         self.continue_grading = True
 
     def _get_name(self):
-        regex = r'(.*?)_\d'
-        return re.findall(regex, self.path.split('/')[-1], flags=re.UNICODE)[0]
+        return 'kerbayak'
 
     def _rename_path(self):
         os.rename(self.path, self.path.replace(' ', '_'))
@@ -62,11 +61,13 @@ class Submission:
     def run(self, testcase):
         old_cwd = os.getcwd()
         os.chdir(self.path)
+        outputs = [os.path.join(self.path, testcase.name + '-Task1.out'), os.path.join(self.path, testcase.name + '-Task2.out')]
 
         command = [self.run_command]
         command.extend(['-Duser.language=en', '-Duser.region=US', '-Duser.country=US'])
         command.append('Main')
-        command.extend([testcase.input_file, os.path.join(self.path, testcase.name + '.out')])
+        command.extend(testcase.input_files)
+        command.extend(outputs)
 
         try:
             child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -78,6 +79,8 @@ class Submission:
         os.chdir(old_cwd)
         if child.returncode != 0:
             raise RunException(child.stderr.read().decode('utf-8').replace('\n', ' ').replace('\r', ''))
+        
+        return outputs
 
 
     def get_files(self):

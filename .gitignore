@@ -162,3 +162,5 @@ cython_debug/
 *.zip
 20232024*
 .vscode
+
+sandbox

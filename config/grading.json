@@ -1,49 +1,12 @@
 {
+    "shared": {
+        "weather_file": "weather.csv"
+    },
     "cases": [
         {
-            "file_name": "test1.in",
+            "mission_name": "TR-1",
             "timeout": 5,
-            "grade": 10
-        },
-        {
-            "file_name": "test2.in",
-            "timeout": 5,
-            "grade": 10
-        },
-        {
-            "file_name": "test3.in",
-            "timeout": 5,
-            "grade": 10
-        },
-        {
-            "file_name": "test4.in",
-            "timeout": 5,
-            "grade": 10
-        },
-        {
-            "file_name": "test5.in",
-            "timeout": 50,
-            "grade": 10
-        },
-        {
-            "file_name": "test6.in",
-            "timeout": 180,
-            "grade": 10
-        },
-        {
-            "file_name": "test7.in",
-            "timeout": 40,
-            "grade": 10
-        },
-        {
-            "file_name": "test8.in",
-            "timeout": 210,
-            "grade": 10
-        },
-        {
-            "file_name": "test9.in",
-            "timeout": 5,
-            "grade": 10
+            "grade": 100
         }
     ]
 }

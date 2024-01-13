@@ -1,17 +1,24 @@
+import os
+
 class Test:
-    def __init__(self, name, input_file, output_file, timeout, grade):
+    def __init__(self, name, input_files, output_files, timeout, grade):
         self.name = name
-        self.input_file = input_file
-        self.output_file = output_file
+        self.input_files = input_files
+        self.output_files = output_files
         self.timeout = timeout
         self.grade = grade
 
-    def check(self, output_file):
+    def check_tests(self, outputs):
+        return [self.check(i, j) for i, j in zip(outputs, self.output_files)]
+
+    def check(self, output_file, real_file):
         # line by line comparison with strip
         # if there is a mismatch, return False
         # if there is no mismatch, return True
         # empty lines at the end of the file are ignored
-        with open(self.output_file, 'r') as f:
+        if not os.path.exists(output_file):
+            return False
+        with open(real_file, 'r') as f:
             output_lines = f.readlines()
         with open(output_file, 'r') as f:
             user_lines = f.readlines()
