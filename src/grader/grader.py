@@ -27,8 +27,8 @@ class Grader:
             directions_file = Path(self.input_dir) / "directions" / (test_dict['mission_name'] + ".csv")
             airports_file = Path(self.input_dir) / "airports" / (test_dict['mission_name'] + ".csv")
             weather_file = Path(self.input_dir) / self.shared["weather_file"]
-            task1_ref = Path(self.output_dir) / f"{test_dict['mission_name']}-task1.out"
-            task2_ref = Path(self.output_dir) / f"{test_dict['mission_name']}-task2.out"
+            task1_ref = Path(self.output_dir) / f"{test_dict['mission_name']}-Task1.out"
+            task2_ref = Path(self.output_dir) / f"{test_dict['mission_name']}-Task2.out"
             if Path.exists(missions_file) and Path.exists(directions_file) and Path.exists(airports_file) and Path.exists(weather_file) and Path.exists(task1_ref) and Path.exists(task2_ref):
                 self.tests.append(Test(test_dict['mission_name'].split('.')[0], [airports_file, directions_file, weather_file, missions_file], [task1_ref, task2_ref], test_dict['timeout'], test_dict['grade']))
         
@@ -48,7 +48,7 @@ class Grader:
                 print(f'Submission {submission.name} is ready')
             except GraderException as e:
                 print(f'Could not prepare submission {submission.name}', e)
-                submission.add_feedback(e)
+                submission.add_feedback(e.message)
                 submission.stop_grading()
 
             self.submissions.append(submission)

@@ -4,9 +4,19 @@
     },
     "cases": [
         {
-            "mission_name": "TR-1",
-            "timeout": 5,
-            "grade": 100
+            "mission_name": "INTER-0",
+            "timeout": 10,
+            "grade": 10
+        },
+        {
+            "mission_name": "INTER-1",
+            "timeout": 10,
+            "grade": 10
+        },
+        {
+            "mission_name": "INTER-2",
+            "timeout": 10,
+            "grade": 10
         }
     ]
 }

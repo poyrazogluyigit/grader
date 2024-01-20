@@ -1,0 +1,35 @@
+{
+            "mission_name": "TR-0",
+            "timeout": 2,
+            "grade": 10
+        },
+        {
+            "mission_name": "TR-1",
+            "timeout": 2,
+            "grade": 10
+        },
+        {
+            "mission_name": "TR-2",
+            "timeout": 2,
+            "grade": 10
+        },
+        {
+            "mission_name": "EU-0",
+            "timeout": 5,
+            "grade": 10
+        },
+        {
+            "mission_name": "EU-1",
+            "timeout": 5,
+            "grade": 10
+        },
+        {
+            "mission_name": "AS-0",
+            "timeout": 10,
+            "grade": 10
+        },
+        {
+            "mission_name": "AS-1",
+            "timeout": 15,
+            "grade": 10
+        },

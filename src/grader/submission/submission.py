@@ -4,6 +4,7 @@ from ..exceptions import CompileException, RunException, TimeoutException
 import os
 import re
 import subprocess
+from pathlib import Path
 
 class Submission:
     def __init__(self, path, extension, compile_extension, compile_command, run_command) -> None:
@@ -21,7 +22,10 @@ class Submission:
         self.continue_grading = True
 
     def _get_name(self):
-        return 'kerbayak'
+        pth = Path(self.path)
+        for file in pth.iterdir():
+            if file.suffix == ".zip":
+                return file.stem
 
     def _rename_path(self):
         os.rename(self.path, self.path.replace(' ', '_'))
